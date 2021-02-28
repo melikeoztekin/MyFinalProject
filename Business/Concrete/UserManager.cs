@@ -31,10 +31,5 @@ namespace Business.Concrete
             return _userDal.Get(u => u.Email == email);
         }
 
-
-        User IUserService.GetByMail(string email)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
