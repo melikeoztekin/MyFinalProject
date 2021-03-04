@@ -6,6 +6,7 @@ using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
+using Core.CrosCuttingConcerns.Caching;
 using Core.CrosCuttingConcerns.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
@@ -52,15 +53,6 @@ namespace Business.Concrete
             _productDal.Add(product);
             return new SuccessResult(Messages.ProductAdded);
         }
-        public IResult Update(Product product)
-        {
-            var result = _productDal.GetAll(p => p.CategoryId == product.CategoryId).Count;
-            if (result >= 10)
-            {
-                return new ErrorResult(Messages.ProductCountOfCategoryError);
-            }
-            throw new NotImplementedException();
-        }
 
         [CacheAspect] //key - value
         public IDataResult<List<Product>> GetAll()
@@ -99,6 +91,16 @@ namespace Business.Concrete
         [ValidationAspect(typeof(ProductValidator))]
         //Add içine eklenen 3 şart
         [CacheRemoveAspect("IProductService.Get")] //IProductService içindeki tüm getleri sil
+        public IResult Update(Product product)
+        {
+            var result = _productDal.GetAll(p => p.CategoryId == product.CategoryId).Count;
+            if (result >= 10)
+            {
+                return new ErrorResult(Messages.ProductCountOfCategoryError);
+            }
+            throw new NotImplementedException();
+        }
+
         private IResult CheckIfProductCountOfCategoryCorrect(int categoryId) //bir kategoride en fazla 15 ürün olabilir
         {
             //Select count(*) from products where categoryId=1

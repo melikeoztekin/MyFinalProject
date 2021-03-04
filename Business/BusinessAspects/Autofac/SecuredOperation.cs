@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Core.Extension;
+using Core.Extensions;
 using Business.Constants;
 
 namespace Business.BusinessAspects.Autofac

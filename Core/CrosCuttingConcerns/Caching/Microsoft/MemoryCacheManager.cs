@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Linq;
+using Core.CrosCuttingConcerns.Caching;
 
 namespace Core.CrosCuttingConcerns.Caching.Microsoft
 {
