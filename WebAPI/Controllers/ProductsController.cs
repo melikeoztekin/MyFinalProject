@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
@@ -31,6 +32,7 @@ namespace WebAPI.Controllers
         {
             //Swagger
             //Dependecy chain --->Bağımlılık zinciri
+            Thread.Sleep(5000); //frontend de spinners için süre belirledik
             var result = _productService.GetAll();
             if (result.Success)
             {
