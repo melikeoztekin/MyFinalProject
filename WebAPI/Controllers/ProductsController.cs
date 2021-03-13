@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
         {
             //Swagger
             //Dependecy chain --->Bağımlılık zinciri
-            Thread.Sleep(5000); //frontend de spinners için süre belirledik
+            Thread.Sleep(1000); //frontend de spinners için süre belirledik
             var result = _productService.GetAll();
             if (result.Success)
             {
@@ -56,6 +56,17 @@ namespace WebAPI.Controllers
         public IActionResult Add(Product product)
         {
             var result = _productService.Add(product);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getbycategory")]
+        public IActionResult GetByCategory(int categoryId)
+        {
+            var result = _productService.GetAllByCategory(categoryId);
             if (result.Success)
             {
                 return Ok(result);
